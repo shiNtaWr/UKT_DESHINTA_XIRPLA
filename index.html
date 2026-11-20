@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi Peminjaman Alat Praktik</title>
+    <link href="./dist/output.css" rel="stylesheet">
+ 
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        section, header {
+            scroll-margin-top: 20px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+<div class="min-h-screen">
+
+    <!-- SIDEBAR -->
+    <aside class="fixed top-0 left-0 w-64 h-screen bg-slate-900 text-white p-6 hidden md:block overflow-y-auto z-50">
+        <h1 class="text-xl font-bold mb-2">WiraRent</h1>
+        <p class="text-slate-400 text-sm mb-10">
+            Sistem Peminjaman Alat
+        </p>
+
+        <!-- NAVIGASI -->
+        <nav class="space-y-3">
+            <a href="#dashboard"
+               class="nav-link block bg-blue-600 text-white p-3 rounded-lg">
+                Dashboard
+            </a>
+            <a href="#alat"
+               class="nav-link block p-3 hover:bg-slate-800 rounded-lg transition-colors">
+                Data Alat
+            </a>
+            <a href="#kategori"
+               class="nav-link block p-3 hover:bg-slate-800 rounded-lg transition-colors">
+                Kategori Alat
+            </a>
+            <a href="#peminjaman"
+               class="nav-link block p-3 hover:bg-slate-800 rounded-lg transition-colors">
+                Peminjaman
+            </a>
+            <a href="#riwayat"
+               class="nav-link block p-3 hover:bg-slate-800 rounded-lg transition-colors">
+                Riwayat
+            </a>
+        </nav>
+    </aside>
+
+    <!-- KONTEN UTAMA -->
+    <main class="p-5 md:p-10 min-w-0 md:ml-64">
+
+        <!-- DASHBOARD -->
+        <header id="dashboard"
+                class="flex flex-wrap justify-between items-center gap-4 mb-8">
+
+            <div>
+                <h2 class="text-3xl font-bold text-slate-800">
+                    Dashboard
+                </h2>
+
+                <p class="text-slate-500 mt-1">
+                    Sistem Peminjaman Alat Praktik Sekolah
+                </p>
+            </div>
+
+            <div class="bg-white px-5 py-3 rounded-xl shadow-sm">
+                <p class="text-sm text-slate-500">Administrator</p>
+                <p class="font-semibold text-slate-800">Shiwa</p>
+            </div>
+
+        </header>
+
+        <!-- STATISTIK -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-600">
+                <p class="text-slate-500 text-sm">Total Alat</p>
+                <h3 id="total-alat" class="text-3xl font-bold text-blue-600 mt-2">0</h3>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-purple-600">
+                <p class="text-slate-500 text-sm">Total Kategori</p>
+                <h3 id="total-kategori" class="text-3xl font-bold text-purple-600 mt-2">0</h3>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-orange-500">
+                <p class="text-slate-500 text-sm">Sedang Dipinjam</p>
+                <h3 id="sedang-dipinjam" class="text-3xl font-bold text-orange-500 mt-2">0</h3>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-green-600">
+                <p class="text-slate-500 text-sm">Sudah Dikembalikan</p>
+                <h3 id="sudah-dikembalikan" class="text-3xl font-bold text-green-600 mt-2">0</h3>
+            </div>
+
+        </section>
+
+        <!-- DATA ALAT -->
+        <section id="alat" class="bg-white rounded-xl shadow-sm p-6 mb-8">
+
+            <h3 class="text-xl font-bold text-slate-800">
+                Data Alat Praktik
+            </h3>
+
+            <p class="text-sm text-slate-500 mt-1 mb-6">
+                Kelola inventaris alat laboratorium sekolah
+            </p>
+
+            <!-- FORM ALAT -->
+            <div class="bg-slate-50 border rounded-xl p-5 mb-6">
+
+                <h4 class="font-semibold text-slate-700 mb-4">
+                    Form Data Alat
+                </h4>
+
+                <form id="form-alat" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <input type="hidden" id="id-alat">
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Nama Alat</label>
+                        <input type="text" id="nama-alat"
+                               placeholder="Masukkan nama alat"
+                               required class="w-full border rounded-lg p-3">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Kategori Alat</label>
+                        <select id="kategori-alat" required
+                                class="w-full border rounded-lg p-3">
+                            <option value="">Pilih kategori</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Stok</label>
+                        <input type="number" id="stok-alat"
+                               placeholder="Masukkan stok"
+                               min="0" required class="w-full border rounded-lg p-3">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Lokasi</label>
+                        <input type="text" id="lokasi-alat"
+                               placeholder="Lokasi penyimpanan"
+                               class="w-full border rounded-lg p-3">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Kondisi</label>
+                        <select id="kondisi-alat" class="w-full border rounded-lg p-3">
+                            <option value="Baik">Baik</option>
+                            <option value="Rusak Ringan">Rusak Ringan</option>
+                            <option value="Rusak Berat">Rusak Berat</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-end gap-2">
+                        <button type="submit"
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg w-full">
+                            Simpan Alat
+                        </button>
+
+                        <button type="reset"
+                                onclick="document.getElementById('id-alat').value=''"
+                                class="bg-slate-500 hover:bg-slate-600 text-white px-5 py-3 rounded-lg">
+                            Reset
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- TABEL ALAT -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+
+                    <thead class="bg-slate-100 text-slate-600 text-sm">
+                        <tr>
+                            <th class="p-4">No</th>
+                            <th class="p-4">Nama Alat</th>
+                            <th class="p-4">Kategori</th>
+                            <th class="p-4">Stok</th>
+                            <th class="p-4">Kondisi</th>
+                            <th class="p-4">Lokasi</th>
+                            <th class="p-4">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabel-alat">
+                        <tr>
+                            <td colspan="7" class="p-6 text-center text-slate-400">
+                                Memuat data alat...
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </section>
+
+        <!-- KATEGORI ALAT -->
+        <section id="kategori" class="bg-white rounded-xl shadow-sm p-6 mb-8">
+
+            <h3 class="text-xl font-bold text-slate-800 mb-2">
+                Data Kategori Alat
+            </h3>
+
+            <p class="text-sm text-slate-500 mb-6">
+                Kelola kategori peralatan praktik sekolah
+            </p>
+
+            <!-- FORM KATEGORI -->
+            <form id="form-kategori" class="flex flex-wrap gap-3 mb-6">
+
+                <input type="text" id="nama-kategori"
+                       placeholder="Nama kategori" required
+                       class="border rounded-lg p-3 flex-1 min-w-48">
+
+                <input type="text" id="deskripsi-kategori"
+                       placeholder="Deskripsi kategori"
+                       class="border rounded-lg p-3 flex-1 min-w-48">
+
+                <button type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg">
+                    + Tambah Kategori
+                </button>
+
+            </form>
+
+            <!-- TABEL KATEGORI -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+
+                    <thead class="bg-slate-100 text-slate-600 text-sm">
+                        <tr>
+                            <th class="p-3">No</th>
+                            <th class="p-3">Nama Kategori</th>
+                            <th class="p-3">Deskripsi</th>
+                            <th class="p-3">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="data-kategori">
+                        <tr>
+                            <td colspan="4" class="p-4 text-center text-slate-400">
+                                Memuat kategori...
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </section>
+
+        <!-- PEMINJAMAN -->
+        <section id="peminjaman" class="bg-white rounded-xl shadow-sm p-6 mb-8">
+
+            <h3 class="text-xl font-bold text-slate-800 mb-2">
+                Data Peminjaman
+            </h3>
+
+            <p class="text-sm text-slate-500 mb-6">
+                Catat transaksi peminjaman alat praktik
+            </p>
+
+            <!-- FORM PEMINJAMAN -->
+            <div class="bg-slate-50 border rounded-xl p-5 mb-6">
+
+                <h4 class="font-semibold text-slate-700 mb-4">
+                    Form Peminjaman Alat
+                </h4>
+
+                <form id="form-peminjaman" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Pilih Alat</label>
+                        <select id="pinjam-alat" required
+                                class="w-full border rounded-lg p-3">
+                            <option value="">Pilih alat</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Nama Peminjam</label>
+                        <input type="text" id="nama-peminjam"
+                               placeholder="Nama lengkap peminjam"
+                               required class="w-full border rounded-lg p-3">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Kelas</label>
+                        <input type="text" id="kelas-peminjam"
+                               placeholder="Contoh: XI RPL 1"
+                               required class="w-full border rounded-lg p-3">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Jumlah Pinjam</label>
+                        <input type="number" id="jumlah-pinjam"
+                               placeholder="Jumlah alat" min="1"
+                               required class="w-full border rounded-lg p-3">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Tanggal Pinjam</label>
+                        <input type="date" id="tanggal-pinjam"
+                               class="w-full border rounded-lg p-3">
+                    </div>
+
+                    <div class="flex items-end">
+                        <button type="submit"
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg w-full">
+                            Catat Peminjaman
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- TABEL PEMINJAMAN -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+
+                    <thead class="bg-slate-100 text-slate-600 text-sm">
+                        <tr>
+                            <th class="p-3">No</th>
+                            <th class="p-3">Nama Alat</th>
+                            <th class="p-3">Peminjam</th>
+                            <th class="p-3">Kelas</th>
+                            <th class="p-3">Jumlah</th>
+                            <th class="p-3">Status</th>
+                            <th class="p-3">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabel-peminjaman">
+                        <tr>
+                            <td colspan="7" class="p-4 text-center text-slate-400">
+                                Memuat data peminjaman...
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </section>
+
+        <!-- RIWAYAT PEMINJAMAN -->
+        <section id="riwayat" class="bg-white rounded-xl shadow-sm p-6 mb-8">
+
+            <h3 class="text-xl font-bold text-slate-800 mb-2">
+                Riwayat Peminjaman
+            </h3>
+
+            <p class="text-sm text-slate-500 mb-6">
+                Seluruh riwayat transaksi peminjaman dan pengembalian
+            </p>
+
+            <!-- TABEL RIWAYAT -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+
+                    <thead class="bg-slate-100 text-slate-600 text-sm">
+                        <tr>
+                            <th class="p-3">No</th>
+                            <th class="p-3">Nama Alat</th>
+                            <th class="p-3">Nama Peminjam</th>
+                            <th class="p-3">Tanggal Pinjam</th>
+                            <th class="p-3">Tanggal Kembali</th>
+                            <th class="p-3">Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabel-riwayat">
+                        <tr>
+                            <td colspan="6" class="p-4 text-center text-slate-400">
+                                Memuat riwayat...
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="text-center text-slate-400 text-sm mt-10">
+            <p>Sistem Informasi Peminjaman Alat Praktik Sekolah</p>
+            <p class="mt-1">© 2026 WiraRent</p>
+        </footer>
+
+    </main>
+</div>
+
+<!-- JAVASCRIPT -->
+<script src="./js/app.js"></script>
+
+</body>
+</html>
